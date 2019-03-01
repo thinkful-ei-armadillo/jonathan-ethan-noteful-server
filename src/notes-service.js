@@ -5,7 +5,7 @@ const xss = require('xss');
 const sanitize = function (note) {
 
   return {
-    id       : xss(note.id),
+    id       : note.id,
     name     : xss(note.name),
     content  : xss(note.content),
     folderid : note.folderid,
