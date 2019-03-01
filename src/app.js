@@ -45,8 +45,4 @@ app.use(validateBearerToken);
 app.use('/api/folders', foldersRouter);
 // app.use('/api/notes', notesRouter);
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
-
 module.exports = app;
