@@ -1,13 +1,16 @@
 'use strict';
 
-const validateFolder = (name) => {
-  let error = false;
+const validateFolder = (folder) => {
 
-  if (!name) {
-    error = true;
+  if (!folder) {
+    return false;
   }
 
-  return error;
+  if (!folder.name) {
+    return false;
+  }
+
+  return true;
 };
 
 module.exports = validateFolder;

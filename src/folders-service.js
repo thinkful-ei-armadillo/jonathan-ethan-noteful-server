@@ -1,18 +1,36 @@
 'use strict';
 
-const getAllFolders = (db) => {
-  
-  return db
-    .select('*')
-    .from('folders');
+const xss = require('xss');
+
+const sanitize = function (folder) {
+
+  return {
+    id   : xss(folder.id),
+    name : xss(folder.name),
+  };
 };
 
-const getFolder = (db, id) => {
-  
+const getAllFolders = (db) => {
+
   return db
     .select('*')
     .from('folders')
-    .where('id', id);
+    .then((results) => {
+
+      return results.map(sanitize);
+    });
+};
+
+const getFolder = (db, id) => {
+
+  return db
+    .select('*')
+    .from('folders')
+    .where('id', id)
+    .then((results) => {
+
+      return results.map(sanitize);
+    });
 };
 
 const createFolder = (db, data) => {
@@ -37,7 +55,7 @@ const deleteFolder = (db, id) => {
 
   return db('folders')
     .delete()
-    .where(('id', id));
+    .where('id', id);
 };
 
 module.exports = {
